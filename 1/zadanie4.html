@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новогодний и високосный калькулятор</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            text-align: center;
+            width: 200px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #daysResult, #leapResult {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+        .error {
+            color: #d9534f !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <input type="text" id="dateInput" placeholder="дд.мм.гггг">
+        <button id="calcBtn">Узнать</button>
+        <div id="daysResult"></div>
+        <div id="leapResult"></div>
+    </div>
+
+    <script>
+        function getDaysToNewYear(dateStr) {
+            const parts = dateStr.split('.');
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10) - 1; 
+            const year = parseInt(parts[2], 10);
+            const inputDate = new Date(year, month, day);
+            const newYearDate = new Date(year, 11, 31); 
+            const diffTime = newYearDate - inputDate;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            return diffDays;
+        }
+        function isLeapYear(dateStr) {
+            const parts = dateStr.split('.');
+            const year = parseInt(parts[2], 10);
+            if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+                return true;
+            }
+            return false;
+        }
+        document.getElementById('calcBtn').addEventListener('click', function() {
+            const dateInput = document.getElementById('dateInput').value.trim();
+            const daysDiv = document.getElementById('daysResult');
+            const leapDiv = document.getElementById('leapResult');
+            daysDiv.className = '';
+            leapDiv.className = '';
+            const datePattern = /^\d{2}\.\d{2}\.\d{4}$/;
+            
+            if (!datePattern.test(dateInput)) {
+                daysDiv.textContent = 'Ошибка: введите дату в формате дд.мм.гггг';
+                daysDiv.className = 'error';
+                leapDiv.textContent = '';
+                return;
+            }
+            const daysLeft = getDaysToNewYear(dateInput);
+            const leapCheck = isLeapYear(dateInput);
+            daysDiv.textContent = `До Нового года осталось: ${daysLeft} дн.`;
+            leapDiv.textContent = leapCheck ? 'Год: високосный' : 'Год: не високосный';
+        });
+    </script>
+</body>
+</html>

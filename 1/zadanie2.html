@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function analyzeElementsGreaterThanB(arr, b) {
+    let count = 0;
+    let product = 1; 
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > b) {
+            count++;
+            product *= arr[i];
+        }
+    }
+
+    if (count === 0) {
+        product = 0;
+    }
+
+    return { count, product };
+}
+
+const arrayA = [2, 8, -3, 5, 10, 1];
+const targetB = 4;
+const result = analyzeElementsGreaterThanB(arrayA, targetB);
+
+console.log(`Массив: [${arrayA}], Число B: ${targetB}`);
+console.log(`Количество элементов больше B: ${result.count}`);
+console.log(`Их произведение: ${result.product}`);
+    </script>
+</body>
+</html>

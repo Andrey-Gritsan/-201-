@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let A = [5, -3, 7, 0, -2, 10, 4];
+
+let sum = 0;
+let count = 0;
+
+
+function analyzePositiveElements(arr) {
+    let sum = 0;
+    let count = 0;
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > 0) {
+            sum += arr[i];
+            count++;
+        }
+    }
+
+    return { sum, count };
+}
+
+
+const arrayA = [-5, 10, 0, 15, -2];
+const result = analyzePositiveElements(arrayA);
+console.log(`Массив: [${arrayA}]`);
+console.log(`Сумма положительных элементов: ${result.sum}`);
+console.log(`Количество положительных элементов: ${result.count}`);
+    </script>
+</body>
+</html>
